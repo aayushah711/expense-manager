@@ -11,6 +11,19 @@ const getTransactions = async (req, res) => {
     }
 };
 
+const getTransaction = async (req, res) => {
+    try {
+        const transactions = await Transaction.find({ user_id: req.params.user_id });
+        res.status(200).json(transactions);
+    } catch (err) {
+        const message = {
+            error: 'true',
+            message: 'No such user_id ' + req.params.user_id
+        };
+        return res.status(400).send(message);
+    }
+};
+
 const addTransaction = async (req, res) => {
     const { error } = transactionValidation(req.body);
     if (error) {
@@ -144,4 +157,4 @@ const deleteTransaction = async (req, res) => {
     }
 };
 
-module.exports = { getTransactions, addTransaction, deleteTransaction, updateTransaction };
+module.exports = { getTransactions, getTransaction, addTransaction, deleteTransaction, updateTransaction };
