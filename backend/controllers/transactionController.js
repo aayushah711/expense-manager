@@ -35,13 +35,26 @@ const addTransaction = async (req, res) => {
         return res.status(400).send(message);
     }
 
-    let userExists = true;
+    // let userExists = true;
     try {
-        await User.findOne({ _id: req.body.user_id }, (err) => {
-            if (err) {
-                userExists = false;
-            }
-        });
+        // await User.findOne({ _id: req.body.user_id }, (err) => {
+        //     if (err) {
+        //         userExists = false;
+        //     }
+        // });
+
+        console.log('1');
+        const userExists = await User.findOne({ _id: req.body.user_id });
+        console.log('2');
+        console.log(userExists);
+        if (!userExists) {
+            const message = {
+                error: 'true',
+                message: 'No such user_id ' + req.body.user_id
+            };
+
+            return res.status(400).send(message);
+        }
 
         const { user_id, title, type, amount } = req.body;
         if (type === 'credit' || type === 'debit') {
@@ -69,14 +82,15 @@ const addTransaction = async (req, res) => {
             return res.status(400).send(message);
         }
     } catch (err) {
-        if (!userExists) {
-            const message = {
-                error: 'true',
-                message: 'No such user_id ' + req.body.user_id
-            };
+        // if (!userExists) {
+        //     const message = {
+        //         error: 'true',
+        //         message: 'No such user_id ' + req.body.user_id
+        //     };
 
-            return res.status(400).send(message);
-        }
+        //     return res.status(400).send(message);
+        // }
+        console.log(err);
         const message = {
             error: 'true',
             message: 'Could not create transaction!',
