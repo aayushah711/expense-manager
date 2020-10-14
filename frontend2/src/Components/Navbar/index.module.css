@@ -1,0 +1,153 @@
+body {
+    font-family: monospace;
+}
+
+#nav {
+    font-family: monospace;
+    font-size: 18px;
+    background-color: #282828;
+    text-align: center;
+    width: 100%;
+    cursor: default;
+    height: 3.5em;
+    line-height: 3.5em;
+}
+
+#nav ul {
+    margin-bottom: 0;
+    list-style: none;
+    padding-left: 0;
+}
+
+#nav li {
+    display: inline-block;
+    padding-left: 0;
+}
+
+#nav a {
+    transition: background-color 0.2s ease-in-out;
+    position: relative;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    font-weight: 600;
+    border-radius: 8px;
+    color: #fff;
+    height: 2.5em;
+    line-height: 2.5em;
+    padding: 0 1.25em;
+}
+
+#nav a:hover {
+    color: #fff !important;
+    background: #383838;
+}
+
+#nav a.active {
+    background: #484848;
+}
+
+#nav a.active:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -0.6em;
+    left: 50%;
+    margin-left: -0.75em;
+    border-left: solid 0.75em transparent;
+    border-right: solid 0.75em transparent;
+    border-top: solid 0.6em #282828;
+}
+#nav button {
+    position: absolute;
+    left: 90%;
+    top: 4%;
+    background-color: rgb(236, 78, 78);
+}
+
+body {
+    text-align: center;
+}
+
+button {
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+}
+
+input {
+    padding: 10px;
+}
+
+.github_searchbox {
+    background-color: cornflowerblue;
+    padding: 10px;
+}
+
+.github_searchbox input {
+    width: 40%;
+    border-radius: 10px;
+    border: none;
+}
+.github_searchbox button {
+    background-color: rgb(235, 201, 14);
+    color: black;
+}
+
+.github_searchbox * {
+    margin: 10px;
+}
+
+.reg_form_div {
+    /* background-color:rgb(206, 23, 206);
+      width: 30%;
+      margin: 20px auto;
+      border-radius: 10px;
+      text-align: center;
+      padding: 20px;
+      border: 2px solid rgb(101, 178, 250); */
+    background-image: url("https://assets.materialup.com/uploads/30308733-f6b6-44d6-80cb-40491f854174/preview.png");
+    width: 100%;
+    height: 690px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.reg_form_div input,
+.login_div input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.reg_form_div button,
+.login_div button {
+    width: 50%;
+    background-color: rgb(63, 173, 111);
+    margin: 20px;
+}
+
+.login_div {
+    /* width: 30%; */
+    /* margin: 20px auto;
+      background-color: rgb(206, 23, 206);
+      padding: 15px;*/
+    border-radius: 80px;
+    background-image: url("https://assets.materialup.com/uploads/30308733-f6b6-44d6-80cb-40491f854174/preview.png");
+    width: 100%;
+    height: 690px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home_div {
+    background-image: url("https://assets.materialup.com/uploads/30308733-f6b6-44d6-80cb-40491f854174/preview.png");
+    width: 100%;
+    height: 690px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
