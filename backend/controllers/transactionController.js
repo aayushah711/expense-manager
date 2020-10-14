@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Transaction = require('../models/Transaction');
 const { transactionValidation, transactionUpdationValidation } = require('./validation');
+const { db } = require('../models/User');
 
 const getTransactions = async (req, res) => {
     try {
@@ -13,8 +14,22 @@ const getTransactions = async (req, res) => {
 
 const getTransaction = async (req, res) => {
     try {
-        const transactions = await Transaction.find({ user_id: req.params.user_id });
-        res.status(200).json(transactions);
+        const transactions = await Transaction.find({ user_id: req.params.user_id }).sort({ timestamp: -1 }).limit(5);
+        let credit = await Transaction.aggregate([
+            { $match: { type: 'credit' } },
+            { $group: { _id: '$_id', total: { $sum: '$amount' } } }
+        ]);
+        credit = credit.reduce((a, c) => a + c['total'], 0);
+
+        let debit = await Transaction.aggregate([
+            { $match: { type: 'debit' } },
+            { $group: { _id: '$_id', total: { $sum: '$amount' } } }
+        ]);
+        debit = debit.reduce((a, c) => a + c['total'], 0);
+
+        let balance = credit - debit;
+
+        res.status(200).json({ transactions, credit, debit, balance });
     } catch (err) {
         const message = {
             error: 'true',

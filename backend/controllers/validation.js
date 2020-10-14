@@ -19,7 +19,7 @@ const loginValidation = (data) => {
 
 const userUpdationValidation = (data) => {
     const schema = Joi.object({
-        user_id: Joi.required(),
+        user_id: Joi.string().hex().length(24).required(),
         name: Joi.string().min(4).required(),
         email: Joi.string().required().email(),
         password: Joi.string().min(6).required()
@@ -29,7 +29,7 @@ const userUpdationValidation = (data) => {
 
 const transactionValidation = (data) => {
     const schema = Joi.object({
-        user_id: Joi.required(),
+        user_id: Joi.string().hex().length(24).required(),
         title: Joi.string().required(),
         type: Joi.string().required(),
         amount: Joi.number().required()
@@ -39,7 +39,7 @@ const transactionValidation = (data) => {
 
 const transactionUpdationValidation = (data) => {
     const schema = Joi.object({
-        transaction_id: Joi.required(),
+        transaction_id: Joi.string().hex().length(24).required(),
         title: Joi.string().required(),
         type: Joi.string().required(),
         amount: Joi.number().required()
