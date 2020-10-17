@@ -20,13 +20,14 @@ const authReducer = (state = initState, { type, payload }) => {
             };
 
         case LOGIN_USER_SUCCESS:
+            console.log(payload)
             return {
                 ...state,
                 isLoading: false,
                 error: true,
                 email: payload.email,
                 mobile: payload.mobile,
-                fullName: payload.fullName,
+                fullName: payload.name,
                 isAuth: true,
                 message: 'Login Successful!'
             };

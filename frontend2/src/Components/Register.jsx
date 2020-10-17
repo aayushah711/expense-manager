@@ -16,13 +16,13 @@ import FormLabel from '@material-ui/core/FormLabel';
 const useStyles = makeStyles({
     layout: {
         backgroundColor: 'red',
-        height: '80vh',
+        height: '91vh',
         background: 'linear-gradient(to bottom right,#83cff3,#ebf8e1)',
-        padding: '30px'
+        padding: '70px'
     },
     authPage: {
         margin: 'auto',
-        width: '260px',
+        width: '360px',
         height: '410px',
         background: 'white',
         padding: '60px 40px 40px'
@@ -63,9 +63,7 @@ const Register = (props) => {
     const [ data, setData ] = useState({
         email: '',
         password: '',
-        fullName: '',
-        mobile: '',
-        gender: 'female'
+        name: ''
     });
 
     const handleChange = (e) => {
@@ -78,23 +76,21 @@ const Register = (props) => {
     const handleRegister = async (e) => {
         e.preventDefault();
         dispatch(changeSpinner(true));
-        const { email, password, fullName, mobile, gender } = data;
+        const { email, password,name } = data;
         try {
             let res = await axios({
                 method: 'post',
-                url: '/register',
+                url: 'http://localhost:5000/api/users/register',
                 data: {
                     email,
                     password,
-                    fullName,
-                    mobile,
-                    gender
+                    name
                 }
             });
             console.log('res', res);
             dispatch(
                 openSnackbar({
-                    message: 'Success',
+                    message: res.data.message,
                     severity: 'success'
                 })
             );
@@ -104,7 +100,7 @@ const Register = (props) => {
             console.log('err', err);
             dispatch(
                 openSnackbar({
-                    message: err.response.data,
+                    message: err.response.data.message,
                     severity: 'error'
                 })
             );
@@ -112,7 +108,7 @@ const Register = (props) => {
             dispatch(changeSpinner(false));
         }
     };
-    const { email, password, fullName, mobile, gender } = data;
+    const { email, password,name } = data;
 
     if (!error) {
         return (
@@ -180,10 +176,10 @@ const Register = (props) => {
                                     required
                                     variant="outlined"
                                     size="small"
-                                    label="Full Name"
+                                    label="Name"
                                     type="text"
-                                    name="fullName"
-                                    value={fullName}
+                                    name="name"
+                                    value={name}
                                     onChange={handleChange}
                                     className={classes.formFields}
                                     InputLabelProps={{
@@ -199,50 +195,7 @@ const Register = (props) => {
                                     }}
                                 />
                             </Box>
-                            <Box>
-                                <TextField
-                                    required
-                                    variant="outlined"
-                                    size="small"
-                                    label="Mobile"
-                                    type="number"
-                                    name="mobile"
-                                    value={mobile}
-                                    onChange={handleChange}
-                                    className={classes.formFields}
-                                    InputLabelProps={{
-                                        style: {
-                                            fontSize: 12
-                                        },
-                                        width: '100%'
-                                    }}
-                                    InputProps={{
-                                        style: {
-                                            fontSize: 12
-                                        }
-                                    }}
-                                />
-                            </Box>
-
-                            <Box display="flex" justifyContent="space-between" alignItems="center">
-                                <FormLabel color="secondary" component="legend">
-                                    Gender
-                                </FormLabel>
-                                <RadioGroup row name="gender" value={gender} onChange={handleChange}>
-                                    <FormControlLabel
-                                        value="female"
-                                        control={<Radio size="small" />}
-                                        label="Female"
-                                        className={classes.radio}
-                                    />
-                                    <FormControlLabel
-                                        value="male"
-                                        control={<Radio size="small" />}
-                                        label="Male"
-                                        className={classes.radio}
-                                    />
-                                </RadioGroup>
-                            </Box>
+                           
                             <Button
                                 className={classes.button}
                                 variant="contained"
