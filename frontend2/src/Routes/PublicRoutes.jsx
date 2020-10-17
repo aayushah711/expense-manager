@@ -3,8 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from '../Components/Home.jsx';
 import Login from '../Components/Login';
 import Register from '../Components/Register';
-import Posts from '../Components/Posts';
-import Payment from '../Components/Payment';
+import Ledger from '../Components/Ledger';
 
 export default function Routing(props) {
     return (
@@ -12,8 +11,7 @@ export default function Routing(props) {
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
-            <Route path="/posts" exact component={Posts} />
-            <Route path="/payment" exact component={Payment} />
+            <Route path="/Ledger" exact component={Ledger} />
             <Route render={() => <h3>Page not found</h3>} />
         </Switch>
     );

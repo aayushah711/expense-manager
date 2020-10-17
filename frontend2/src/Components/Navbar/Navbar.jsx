@@ -34,6 +34,9 @@ function Navbar(props) {
                     <li>
                         <Link to="/login">Login</Link>
                     </li>
+                    <li>
+                        <Link to="/ledger">Ledger</Link>
+                    </li>
                 </ul>
             </div>
         </React.Fragment>
