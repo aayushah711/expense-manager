@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PaginationControlled({ totalItems, totalPages, limit, setLimit, page, setPage }) {
+export default function PaginationControlled({ totalPages, limit, setLimit, page, setPage }) {
     const classes = useStyles();
     const handleChange = (event, value) => {
         setPage(value);
@@ -21,11 +21,10 @@ export default function PaginationControlled({ totalItems, totalPages, limit, se
 
     return (
         <div className={classes.root}>
-            <h1>Apache Batch Student Database</h1>
             <TextField
                 size="small"
                 style={{ margin: '20px 0', width: '100px' }}
-                label="Rows per page"
+                label="Rows"
                 name="rows"
                 value={limit}
                 variant="outlined"
