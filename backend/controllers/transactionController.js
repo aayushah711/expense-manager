@@ -1,7 +1,15 @@
 const User = require('../models/User');
 const Transaction = require('../models/Transaction');
 const { transactionValidation, transactionUpdationValidation } = require('./validation');
-const { db } = require('../models/User');
+const mongoose = require('mongoose');
+
+const getPaginatedTransactions = (req, res) => {
+    const message = {
+        error: 'false',
+        transactions: res.pagination
+    };
+    res.status(200).send(message);
+};
 
 const getTransactions = async (req, res) => {
     try {
@@ -12,17 +20,17 @@ const getTransactions = async (req, res) => {
     }
 };
 
-const getTransaction = async (req, res) => {
+const dashBoardTransactions = async (req, res) => {
     try {
         const transactions = await Transaction.find({ user_id: req.params.user_id }).sort({ timestamp: -1 }).limit(5);
         let credit = await Transaction.aggregate([
-            { $match: { type: 'credit' } },
+            { $match: { user_id: mongoose.Types.ObjectId(req.params.user_id), type: 'credit' } },
             { $group: { _id: '$_id', total: { $sum: '$amount' } } }
         ]);
         credit = credit.reduce((a, c) => a + c['total'], 0);
 
         let debit = await Transaction.aggregate([
-            { $match: { type: 'debit' } },
+            { $match: { user_id: mongoose.Types.ObjectId(req.params.user_id), type: 'debit' } },
             { $group: { _id: '$_id', total: { $sum: '$amount' } } }
         ]);
         debit = debit.reduce((a, c) => a + c['total'], 0);
@@ -50,18 +58,8 @@ const addTransaction = async (req, res) => {
         return res.status(400).send(message);
     }
 
-    // let userExists = true;
     try {
-        // await User.findOne({ _id: req.body.user_id }, (err) => {
-        //     if (err) {
-        //         userExists = false;
-        //     }
-        // });
-
-        console.log('1');
         const userExists = await User.findOne({ _id: req.body.user_id });
-        console.log('2');
-        console.log(userExists);
         if (!userExists) {
             const message = {
                 error: 'true',
@@ -97,15 +95,6 @@ const addTransaction = async (req, res) => {
             return res.status(400).send(message);
         }
     } catch (err) {
-        // if (!userExists) {
-        //     const message = {
-        //         error: 'true',
-        //         message: 'No such user_id ' + req.body.user_id
-        //     };
-
-        //     return res.status(400).send(message);
-        // }
-        console.log(err);
         const message = {
             error: 'true',
             message: 'Could not create transaction!',
@@ -186,4 +175,11 @@ const deleteTransaction = async (req, res) => {
     }
 };
 
-module.exports = { getTransactions, getTransaction, addTransaction, deleteTransaction, updateTransaction };
+module.exports = {
+    getPaginatedTransactions,
+    getTransactions,
+    dashBoardTransactions,
+    addTransaction,
+    deleteTransaction,
+    updateTransaction
+};
