@@ -8,17 +8,16 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-
 const useStyles = makeStyles({
     layout: {
         backgroundColor: 'red',
-        height: '80vh',
+        height: '91vh',
         background: 'linear-gradient(to bottom right,#83cff3,#ebf8e1)',
-        padding: '30px'
+        padding: '70px'
     },
     authPage: {
         margin: 'auto',
-        width: '260px',
+        width: '360px',
         height: '410px',
         background: 'white',
         padding: '60px 40px 40px'
@@ -49,7 +48,9 @@ const Login = (props) => {
     const dispatch = useDispatch();
     const handleLogin = (e) => {
         e.preventDefault();
-        dispatch(userLogin(data));
+        console.log(data)
+            dispatch(userLogin(data));
+       
     };
     const [ data, setData ] = useState({
         email: '',
@@ -125,7 +126,7 @@ const Login = (props) => {
                             Login
                         </Button>
                     </FormControl>
-                    <Divider style={{ margin: '50px 0' }} variant="middle" />
+                    {/* <Divider style={{ margin: '50px 0' }} variant="middle" />
                     <Button
                         fullWidth
                         variant="outlined"
@@ -134,9 +135,10 @@ const Login = (props) => {
                         onClick={() => history.push('/register')}
                     >
                         CREATE NEW ACCOUNT
-                    </Button>
+                    </Button> */}
                 </Box>
             </Box>
+            
         );
     }
 };
