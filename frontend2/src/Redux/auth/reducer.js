@@ -4,8 +4,8 @@ const initState = {
     isLoading: false,
     error: false,
     message: '',
+    user_id: '',
     fullName: '',
-    mobile: '',
     email: '',
     isAuth: false
 };
@@ -20,14 +20,13 @@ const authReducer = (state = initState, { type, payload }) => {
             };
 
         case LOGIN_USER_SUCCESS:
-            console.log(payload)
             return {
                 ...state,
                 isLoading: false,
                 error: true,
-                email: payload.email,
-                mobile: payload.mobile,
+                user_id: payload.id,
                 fullName: payload.name,
+                email: payload.email,
                 isAuth: true,
                 message: 'Login Successful!'
             };
@@ -42,7 +41,11 @@ const authReducer = (state = initState, { type, payload }) => {
         case LOGOUT_USER:
             return {
                 ...state,
+                user_id: '',
+                fullName: '',
+                email: '',
                 isAuth: false,
+
                 message: 'Logout Successful!'
             };
         default:

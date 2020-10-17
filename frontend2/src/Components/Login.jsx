@@ -48,9 +48,7 @@ const Login = (props) => {
     const dispatch = useDispatch();
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(data)
-            dispatch(userLogin(data));
-       
+        dispatch(userLogin(data));
     };
     const [ data, setData ] = useState({
         email: '',
@@ -126,7 +124,7 @@ const Login = (props) => {
                             Login
                         </Button>
                     </FormControl>
-                    {/* <Divider style={{ margin: '50px 0' }} variant="middle" />
+                    <Divider style={{ margin: '50px 0' }} variant="middle" />
                     <Button
                         fullWidth
                         variant="outlined"
@@ -135,10 +133,9 @@ const Login = (props) => {
                         onClick={() => history.push('/register')}
                     >
                         CREATE NEW ACCOUNT
-                    </Button> */}
+                    </Button>
                 </Box>
             </Box>
-            
         );
     }
 };
