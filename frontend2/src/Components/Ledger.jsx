@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSpinner } from '../Redux/app/actions';
 import Pagination from './Pagination';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
@@ -10,10 +12,13 @@ import styles from './Ledger.module.css';
 const Ledger = () => {
     let [ type, setType ] = useState('');
     const [ page, setPage ] = React.useState(1);
-    const [ limit, setLimit ] = useState(5);
+    const [ limit, setLimit ] = useState(20);
     const [ transactions, setTransactions ] = useState([]);
+    const user_id = useSelector((state) => state.auth.user_id);
+    const dispatch = useDispatch();
     useEffect(
         () => {
+            dispatch(changeSpinner(false));
             axios({
                 method: 'get',
                 url: 'http://localhost:5000/api/transactions/pagination',
@@ -21,15 +26,19 @@ const Ledger = () => {
                     page: page,
                     limit: limit,
                     type: type,
-                    user_id: '5f819163a199fb159c59f97f'
+                    user_id: user_id
                 }
             })
-                .then((res) => setTransactions(res.data.transactions))
-                .catch((err) => console.log(err));
+                .then((res) => {
+                    setTransactions(res.data.transactions);
+                    dispatch(changeSpinner(false));
+                })
+                .catch((err) => {
+                    dispatch(changeSpinner(false));
+                });
         },
-        [ type, page, limit ]
+        [ type, page, limit, dispatch, user_id ]
     );
-    console.log(transactions.current);
 
     return (
         <div>
@@ -51,15 +60,16 @@ const Ledger = () => {
                 </Nav.Item>
             </Nav>
             <Container className={styles.container}>
-                <h5 style={{ padding: '20px 0' }}>All transactions</h5>
                 <Table hover>
                     <thead>
                         <tr>
                             <th width="100">#</th>
                             <th>Title</th>
-                            <th width="200">Date</th>
+                            <th width="150">Date</th>
                             <th width="100">Type</th>
-                            <th width="100">Amount</th>
+                            <th width="120" className="text-right pr-5">
+                                Amount
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,8 +80,14 @@ const Ledger = () => {
                                         <td> </td>
                                         <td>{transaction.title}</td>
                                         <td>{moment(transaction.timestamp).format('DD/MM/YYYY HH:mm')}</td>
-                                        <td>{transaction.amount}</td>
                                         <td>{transaction.type}</td>
+                                        <td
+                                            className={`text-right pr-5 text-${transaction.type === 'credit'
+                                                ? 'success'
+                                                : 'danger'}`}
+                                        >
+                                            ₹ {transaction.amount}
+                                        </td>
                                     </tr>
                                 );
                             })}

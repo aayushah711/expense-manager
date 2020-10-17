@@ -8,10 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { changeSpinner, openSnackbar } from '../Redux/app/actions';
 import { useDispatch } from 'react-redux';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles({
     layout: {
@@ -76,7 +72,7 @@ const Register = (props) => {
     const handleRegister = async (e) => {
         e.preventDefault();
         dispatch(changeSpinner(true));
-        const { email, password,name } = data;
+        const { email, password, name } = data;
         try {
             let res = await axios({
                 method: 'post',
@@ -87,7 +83,6 @@ const Register = (props) => {
                     name
                 }
             });
-            console.log('res', res);
             dispatch(
                 openSnackbar({
                     message: res.data.message,
@@ -97,7 +92,6 @@ const Register = (props) => {
             setError(false);
             dispatch(changeSpinner(false));
         } catch (err) {
-            console.log('err', err);
             dispatch(
                 openSnackbar({
                     message: err.response.data.message,
@@ -108,7 +102,7 @@ const Register = (props) => {
             dispatch(changeSpinner(false));
         }
     };
-    const { email, password,name } = data;
+    const { email, password, name } = data;
 
     if (!error) {
         return (
@@ -131,6 +125,8 @@ const Register = (props) => {
                                     label="Email"
                                     type="text"
                                     name="email"
+                                    // error
+                                    // helperText="Incorrect entry."
                                     value={email}
                                     onChange={handleChange}
                                     className={classes.formFields}
@@ -195,7 +191,7 @@ const Register = (props) => {
                                     }}
                                 />
                             </Box>
-                           
+
                             <Button
                                 className={classes.button}
                                 variant="contained"
