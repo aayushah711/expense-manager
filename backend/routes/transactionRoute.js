@@ -15,7 +15,7 @@ const paginatedResults = (model) => {
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
         const type = req.query.type;
-        if (type !== 'debit' && type !== 'credit') {
+        if (type !== 'debit' && type !== 'credit' && type != '') {
             const message = {
                 error: true,
                 message: 'Type has to be either debit or credit'
