@@ -50,7 +50,7 @@ const paginatedResults = (model) => {
             results.page_no = page;
             results.total_items = transactionsCount;
             results.total_pages = Math.ceil(transactionsCount / limit);
-            results.current = transactions.slice(startIndex, limit);
+            results.current = transactions.splice(startIndex, limit);
 
             res.pagination = results;
             next();
