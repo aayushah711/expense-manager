@@ -7,6 +7,7 @@ import { store } from './Redux/store';
 import { Provider } from 'react-redux';
 import './fonts/whitneymedium.otf';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>

@@ -86,7 +86,7 @@ input {
 }
 
 .github_searchbox input {
-    width: 40%;
+    width: 60%;
     border-radius: 10px;
     border: none;
 }
@@ -109,7 +109,7 @@ input {
       border: 2px solid rgb(101, 178, 250); */
     background-image: url("https://assets.materialup.com/uploads/30308733-f6b6-44d6-80cb-40491f854174/preview.png");
     width: 100%;
-    height: 690px;
+    height: 790px;
     background-repeat: no-repeat;
     background-size: cover;
 }

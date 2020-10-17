@@ -58,7 +58,7 @@ export const userLogin = (payload) => async (dispatch) => {
             }
         });
         console.log('res', res);
-        dispatch(loginUserSuccess(res.data));
+        dispatch(loginUserSuccess(res.data.user));
         return true;
     } catch (err) {
         dispatch(loginUserFailure(err));
